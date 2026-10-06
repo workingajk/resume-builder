@@ -42,7 +42,7 @@ function Saved() {
                     placeholder="Search Job Title "
                     slotProps={{
                         input: {
-                            endAdornment: <CiSearch size={'20px'} fontWei />,
+                            endAdornment: <CiSearch size={'20px'}  />,
                         },
                     }}
                 />

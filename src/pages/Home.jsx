@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { Box, Stack } from "@mui/material";
 import mainImg from "./../assets/main.jpg";
 import abtImg from "./../assets/abt.jpg";
+import { Link } from "react-router-dom";
 
 function Home() {
     // const [count, setCount] = useState(0);
@@ -46,9 +47,11 @@ function Home() {
                     <Typography variant="h2" component="h2">
                         Your Next Job - All in One
                     </Typography>
+                    <Link to={'/resume'}>
                     <Button sx={{ bgcolor: "brown", color: "white" }}>
                         Make Your Resume with AI
                     </Button>
+                    </Link>
                 </Box>
             </section>
 
