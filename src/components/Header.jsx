@@ -14,11 +14,18 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 // import AdbIcon from "@mui/icons-material/Adb";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["All Resumes", "All Downloads", "About Us"];
+const pages = [
+    { name: "All Resumes", url: "/all-resumes" },
+    { name: "All Downloads", url: "/downloads" },
+    { name: "About Us", url: "/all-resumes" },
+];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
+
 function Header() {
+    const nav = useNavigate()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     // const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -48,7 +55,7 @@ function Header() {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        onClick={()=>nav('/')}
                         sx={{
                             mr: 2,
                             display: { xs: "none", md: "flex" },
@@ -73,7 +80,7 @@ function Header() {
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
+                            onClick={()=>nav('/')}
                             color="inherit"
                         >
                             <MenuIcon />
@@ -96,11 +103,11 @@ function Header() {
                         >
                             {pages.map((page) => (
                                 <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                    key={page.name}
+                                    onClick={()=>nav(page.url)}
                                 >
                                     <Typography sx={{ textAlign: "center" }}>
-                                        {page}
+                                        {page.name}
                                     </Typography>
                                 </MenuItem>
                             ))}
@@ -135,27 +142,13 @@ function Header() {
                     >
                         {pages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
+                                key={page.name}
+                                onClick={()=>nav(page.url)}
                                 sx={{ my: 2, color: "white", display: "block" }}
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
-                    </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{ p: 0 }}
-                            >
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="/static/images/avatar/2.jpg"
-                                />
-                            </IconButton>
-                        </Tooltip>
-                        
                     </Box>
                 </Toolbar>
             </Container>

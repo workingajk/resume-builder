@@ -43,20 +43,21 @@ function Footer() {
                         width: "100%",
                     }}
                 >
-                    <Stack spacing={2}>
+                      <Stack spacing={2}>
                         <h3>Contact Us</h3>
-                        <p>
-                            {" "}
-                            <Mail /> resumebuilder@gmail.com
+                        <p style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <Mail />
+                            resumebuilder@gmail.com
                         </p>
-                        <p>
-                            {" "}
-                            <PhoneIcon /> 9087654321
+                        <p style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <PhoneIcon />
+                            9087654321
                         </p>
                         <h5>Connect With Us</h5>
-                        <p>
-                            {" "}
-                            <Instagram /> <Facebook /> <WhatsApp />
+                        <p style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <Instagram />
+                            <Facebook />
+                            <WhatsApp />
                         </p>
                     </Stack>
                     {/* <img
@@ -75,7 +76,7 @@ function Footer() {
                     paddingBottom: "10px",
                 }}
             >
-                Designed and build wth <Favorite/> love using React
+                Designed and build wth <Favorite style={{ verticalAlign: "middle" }} /> love using React
             </h5>
         </div>
     );

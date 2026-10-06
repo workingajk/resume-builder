@@ -1,13 +1,13 @@
 import React from "react";
 // import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { Box, Stack } from "@mui/material";
 import mainImg from "./../assets/main.jpg";
 import abtImg from "./../assets/abt.jpg";
 
 function Home() {
     // const [count, setCount] = useState(0);
-
     return (
         <>
             <section
@@ -19,12 +19,14 @@ function Home() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    backgroundAttachment:'fixed'
                 }}
             >
                 <Box
                     sx={{
                         p: 2,
-                        backdropFilter: "blur(8px)",
+                        // backdropFilter: "blur(8px)",
+                        backgroundColor: "rgba(231, 171, 58, 0.5)",
                         display: "flex",
                         flexDirection: "column",
                         color: "white",
@@ -35,9 +37,15 @@ function Home() {
                         gap: "10px",
                     }}
                 >
-                    <h1>Designed to get Hired.</h1>
-                    <h1>Your Skills, Your Story,</h1>
-                    <h1>Your Next Job - All in One</h1>
+                    <Typography variant="h2" component="h2">
+                        Designed to get Hired.
+                    </Typography>
+                    <Typography variant="h2" component="h2">
+                        Your Skills, Your Story,
+                    </Typography>
+                    <Typography variant="h2" component="h2">
+                        Your Next Job - All in One
+                    </Typography>
                     <Button sx={{ bgcolor: "brown", color: "white" }}>
                         Make Your Resume with AI
                     </Button>
@@ -90,7 +98,17 @@ function Home() {
                         />
                     </div>
                 </Box>
-                <img src="/img.jpg" width={"100%"} alt="" />
+                <div
+                    style={{
+                        backgroundImage: "url(/img.jpg)",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundAttachment: "fixed",
+                        width: "100%",
+                        minHeight: "500px",
+                    }}
+                >
+                </div>
             </section>
             <section>
                 <h1 style={{ textAlign: "center" }}>Testimony</h1>
@@ -103,22 +121,30 @@ function Home() {
                 >
                     <div
                         style={{
-                            width: "100%",
+                            width: "80%",
                             fontSize: "20px",
                             textAlign: "justify",
+                            padding: "30px",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
                         }}
                     >
-                        <h2>Trusted by professionals worldwide.</h2>
-                        <p>
-                            At rBuilder, we don't just help you create résumés —
-                            we help you land the job. Whether you're a seasoned
-                            professional or just starting out, our tools are
-                            designed to get results. In fact, users who used
-                            rBuilder reported getting hired an average of 48
-                            days faster. Join thousands of job-seekers who’ve
-                            fast-tracked their careers with a résumé that truly
-                            stands out.
-                        </p>
+                        <Stack spacing={3}>
+
+                            <h2>Trusted by professionals worldwide.</h2>
+
+                            <p>
+                                At rBuilder, we don't just help you create résumés —
+                                we help you land the job. Whether you're a seasoned
+                                professional or just starting out, our tools are
+                                designed to get results. In fact, users who used
+                                rBuilder reported getting hired an average of 48
+                                days faster. Join thousands of job-seekers who’ve
+                                fast-tracked their careers with a résumé that truly
+                                stands out.
+                            </p>
+                        </Stack>
                     </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <img
