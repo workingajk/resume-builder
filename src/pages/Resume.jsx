@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { HiMiniDocumentArrowDown } from "react-icons/hi2";
+import { Link } from 'react-router-dom';
 
 function Resume() {
   return (
@@ -81,7 +82,9 @@ function Resume() {
                     </Paper>
                 </Stack>
                 <Stack style={{display:'flex',justifyContent:'center',alignItems:'center', padding:'20px'}}>
+                    <Link to={'/resume-details'}>
                     <Button variant='contained'  style={{width:'200px', backgroundColor: "brown"}}>GET STARTED</Button>
+                    </Link>
                 </Stack>
             </Container>
         </div>

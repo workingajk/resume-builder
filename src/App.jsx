@@ -10,6 +10,7 @@ import Saved from "./pages/Saved";
 import View from "./pages/View";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Test from './pages/Test'
 
 function App() {
     return (
