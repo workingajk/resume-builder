@@ -102,10 +102,15 @@ function ResumeInputs() {
     const [degree, setDegree] = React.useState("");
     const [college, setCollege] = React.useState("");
     const [gradYear, setGradYear] = React.useState("");
-    
+
     const handleJob = (event) => {
         setJob(event.target.value);
     };
+
+    const handleGenerateSummary = () => {
+        handleNext();
+    };
+
     const renderFormContent = (step) => {
         switch (step) {
             case 0:
@@ -116,12 +121,15 @@ function ResumeInputs() {
                             id="standard-basic"
                             label="Full Name"
                             fullWidth
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             variant="standard"
-                            
                         />
                         <TextField
                             id="standard-basic"
                             label="Location"
+                            value={loc}
+                            onChange={(e) => setLoc(e.target.value)}
                             fullWidth
                             variant="standard"
                         />
@@ -214,23 +222,31 @@ function ResumeInputs() {
                         <TextField
                             id="standard-basic"
                             label="Email"
+                            value={mail}
+                            onChange={(e) => setMail(e.target.value)}
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="Contact Number"
+                            value={contact}
+                            onChange={(e) => setContact(e.target.value)}
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="Linkedin Link"
+                            value={linkedin}
+                            onChange={(e) => setLinkedin(e.target.value)}
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
+                            value={git}
+                            onChange={(e) => setGit(e.target.value)}
                             label="Github Link"
                             fullWidth
                             variant="standard"
@@ -245,18 +261,24 @@ function ResumeInputs() {
                         <TextField
                             id="standard-basic"
                             label="Bachelor's Degree"
+                            value={degree}
+                            onChange={(e) => setDegree(e.target.value)}
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="College/University Name"
+                            value={college}
+                            onChange={(e) => setCollege(e.target.value)}
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="Year of Graduation"
+                            value={gradYear}
+                            onChange={(e) => setGradYear(e.target.value)}
                             fullWidth
                             variant="standard"
                         />
@@ -271,8 +293,12 @@ function ResumeInputs() {
                             Our AI will generate Skills & Summary according to
                             your job role.Once the form get submitted, user
                             won't get the chance to update the resume details.
-                            If you want ot proceed please click the <span style={{fontWeight:'bold'}}> Generate AI
-                            Skill & Summary</span> button to submit.
+                            If you want ot proceed please click the{" "}
+                            <span style={{ fontWeight: "bold" }}>
+                                {" "}
+                                Generate AI Skill & Summary
+                            </span>{" "}
+                            button to submit.
                         </Typography>
                     </div>
                 );
@@ -363,11 +389,15 @@ function ResumeInputs() {
                                     Skip
                                 </Button>
                             )} */}
-                            <Button onClick={handleNext} ref={nextButtonRef}>
-                                {activeStep === steps.length - 1
-                                    ? "Generate AI Skill & Summary "
-                                    : "Next"}
-                            </Button>
+                            <div ref={nextButtonRef}>
+                                {activeStep === steps.length - 1 ? (
+                                    <Button onClick={handleGenerateSummary}>
+                                        "Generate AI Skill & Summary "
+                                    </Button>
+                                ) : (
+                                    <Button onClick={handleNext}>"Next"</Button>
+                                )}
+                            </div>
                         </Box>
                     </React.Fragment>
                 )}

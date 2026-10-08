@@ -23,9 +23,8 @@ const pages = [
 ];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-
 function Header() {
-    const nav = useNavigate()
+    const nav = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     // const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -55,7 +54,7 @@ function Header() {
                         variant="h6"
                         noWrap
                         component="a"
-                        onClick={()=>nav('/')}
+                        onClick={() => nav("/")}
                         sx={{
                             mr: 2,
                             display: { xs: "none", md: "flex" },
@@ -80,7 +79,7 @@ function Header() {
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            onClick={()=>nav('/')}
+                            onClick={handleOpenNavMenu}
                             color="inherit"
                         >
                             <MenuIcon />
@@ -104,7 +103,7 @@ function Header() {
                             {pages.map((page) => (
                                 <MenuItem
                                     key={page.name}
-                                    onClick={()=>nav(page.url)}
+                                    onClick={() => nav(page.url)}
                                 >
                                     <Typography sx={{ textAlign: "center" }}>
                                         {page.name}
@@ -120,7 +119,7 @@ function Header() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        onClick={()=>nav('/')}
                         sx={{
                             mr: 2,
                             display: { xs: "flex", md: "none" },
@@ -138,12 +137,13 @@ function Header() {
                         sx={{
                             flexGrow: 1,
                             display: { xs: "none", md: "flex" },
+                            justifyContent: "end",
                         }}
                     >
                         {pages.map((page) => (
                             <Button
                                 key={page.name}
-                                onClick={()=>nav(page.url)}
+                                onClick={() => nav(page.url)}
                                 sx={{ my: 2, color: "white", display: "block" }}
                             >
                                 {page.name}

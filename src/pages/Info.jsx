@@ -14,8 +14,9 @@ function Info() {
                 sx={{
                     // display:'flex',
                     justifyContent: "space-evenly",
-                    alignItems: "center",
-                    marginTop: "100px",
+                    alignItems: "top",
+                    marginTop: "10px",
+                    p:7
                 }}
             >
                 <Box sx={{width:'100%',p:4}}>
