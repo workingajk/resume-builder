@@ -9,20 +9,40 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function Edit({ handleClose, handleOpen, open }) {
-    const [name, setName] = React.useState("");
-    const [loc, setLoc] = React.useState("");
-    const [job, setJob] = React.useState("");
+import { styled } from "@mui/material/styles";
+// import Box from '@mui/material/Box';
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 
-    const [mail, setMail] = React.useState("");
-    const [contact, setContact] = React.useState("");
-    const [git, setGit] = React.useState("");
-    const [linkedin, setLinkedin] = React.useState("");
-
-    const [degree, setDegree] = React.useState("");
-    const [college, setCollege] = React.useState("");
-    const [gradYear, setGradYear] = React.useState("");
-
+function Edit({
+    handleClose,
+    handleOpen,
+    open,
+    resume = {
+        name: "",
+        loc: "",
+        job: "",
+        mail: "",
+        contact: "",
+        git: "",
+        linkedin: "",
+        degree: "",
+        college: "",
+        gradYear: "",
+        skills: "",
+    },
+    setResume,
+}) {
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: "#fff",
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: "center",
+        color: (theme.vars ?? theme).palette.text.secondary,
+        ...theme.applyStyles("dark", {
+            backgroundColor: "#1A2027",
+        }),
+    }));
     return (
         <Modal
             open={open}
@@ -34,14 +54,14 @@ function Edit({ handleClose, handleOpen, open }) {
                 justifyContent: "center",
                 alignItems: "top",
             }}
-            >
+        >
             <Box
                 sx={{
                     backgroundColor: "white",
                     // margin:'30px 40px',
                     p: 3,
                     maxWidth: "500px",
-                    overflowY:'scroll'
+                    overflowY: "scroll",
                 }}
             >
                 <Typography
@@ -52,26 +72,27 @@ function Edit({ handleClose, handleOpen, open }) {
                         backgroundColor: "grey",
                         textAlign: "center",
                     }}
-                    >
+                >
                     Edit Resume Details
                 </Typography>
-                <div style={{
-                    paddingTop:20
-
-                }}>
+                <div
+                    style={{
+                        paddingTop: 20,
+                    }}
+                >
                     <Typography variant="h5">Basic Information</Typography>
                     <TextField
                         id="standard-basic"
                         label="Full Name"
                         fullWidth
-                        value={name}
+                        value={resume.name}
                         onChange={(e) => setName(e.target.value)}
                         variant="standard"
                     />
                     <TextField
                         id="standard-basic"
                         label="Location"
-                        value={loc}
+                        value={resume.loc}
                         onChange={(e) => setLoc(e.target.value)}
                         fullWidth
                         variant="standard"
@@ -87,7 +108,7 @@ function Edit({ handleClose, handleOpen, open }) {
                         <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={job}
+                            value={resume.job}
                             onChange={(e) => setJob(e.target.value)}
                         >
                             <MenuItem value="">
@@ -159,7 +180,7 @@ function Edit({ handleClose, handleOpen, open }) {
                     <TextField
                         id="standard-basic"
                         label="Email"
-                        value={mail}
+                        value={resume.mail}
                         onChange={(e) => setMail(e.target.value)}
                         fullWidth
                         variant="standard"
@@ -167,7 +188,7 @@ function Edit({ handleClose, handleOpen, open }) {
                     <TextField
                         id="standard-basic"
                         label="Contact Number"
-                        value={contact}
+                        value={resume.contact}
                         onChange={(e) => setContact(e.target.value)}
                         fullWidth
                         variant="standard"
@@ -175,14 +196,14 @@ function Edit({ handleClose, handleOpen, open }) {
                     <TextField
                         id="standard-basic"
                         label="Linkedin Link"
-                        value={linkedin}
+                        value={resume.linkedin}
                         onChange={(e) => setLinkedin(e.target.value)}
                         fullWidth
                         variant="standard"
                     />
                     <TextField
                         id="standard-basic"
-                        value={git}
+                        value={resume.git}
                         onChange={(e) => setGit(e.target.value)}
                         label="Github Link"
                         fullWidth
@@ -195,7 +216,7 @@ function Edit({ handleClose, handleOpen, open }) {
                     <TextField
                         id="standard-basic"
                         label="Bachelor's Degree"
-                        value={degree}
+                        value={resume.degree}
                         onChange={(e) => setDegree(e.target.value)}
                         fullWidth
                         variant="standard"
@@ -203,7 +224,7 @@ function Edit({ handleClose, handleOpen, open }) {
                     <TextField
                         id="standard-basic"
                         label="College/University Name"
-                        value={college}
+                        value={resume.college}
                         onChange={(e) => setCollege(e.target.value)}
                         fullWidth
                         variant="standard"
@@ -211,13 +232,41 @@ function Edit({ handleClose, handleOpen, open }) {
                     <TextField
                         id="standard-basic"
                         label="Year of Graduation"
-                        value={gradYear}
+                        value={resume.gradYear}
                         onChange={(e) => setGradYear(e.target.value)}
                         fullWidth
                         variant="standard"
                     />
                 </div>
-                <Stack direction={"row"} sx={{justifyContent:'center'}}>
+                <div>
+                    <Typography variant="h5">Skills</Typography>
+                    <TextField
+                        id="standard-basic"
+                        label="Add Skills"
+                        value={resume.gradYear}
+                        onChange={(e) => setGradYear(e.target.value)}
+                        fullWidth
+                        variant="standard"
+                    />
+                    <Typography variant="h5">Added Skills</Typography>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={2}>
+                            <Grid size={4}>
+                                <Item>size=8</Item>
+                            </Grid>
+                            <Grid size={4}>
+                                <Item>size=4</Item>
+                            </Grid>
+                            <Grid size={4}>
+                                <Item>size=4</Item>
+                            </Grid>
+                            <Grid size={4}>
+                                <Item>size=8</Item>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </div>
+                <Stack direction={"row"} sx={{ justifyContent: "center" }}>
                     <Button>Cancel</Button>
                     <Button>Save</Button>
                 </Stack>

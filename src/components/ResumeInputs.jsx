@@ -11,6 +11,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import jobSkills from "../assets/jobSkills.json";
+import jobs from "../assets/jobRoles.json";
+import summaries from "../assets/summaries.json";
 
 const steps = [
     "Basic Information",
@@ -19,7 +22,7 @@ const steps = [
     "Review & Submit",
 ];
 
-function ResumeInputs() {
+function ResumeInputs({ resume, setResume }) {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
 
@@ -90,24 +93,14 @@ function ResumeInputs() {
         }
     }, [activeStep, isStepOptional]);
 
-    const [name, setName] = React.useState("");
-    const [loc, setLoc] = React.useState("");
-    const [job, setJob] = React.useState("");
-
-    const [mail, setMail] = React.useState("");
-    const [contact, setContact] = React.useState("");
-    const [git, setGit] = React.useState("");
-    const [linkedin, setLinkedin] = React.useState("");
-
-    const [degree, setDegree] = React.useState("");
-    const [college, setCollege] = React.useState("");
-    const [gradYear, setGradYear] = React.useState("");
-
     const handleJob = (event) => {
         setJob(event.target.value);
     };
 
     const handleGenerateSummary = () => {
+        setResume({ ...resume, skills: jobSkills[resume.job], summary:summaries[resume.job] });
+        console.log(resume);
+
         handleNext();
     };
 
@@ -121,15 +114,19 @@ function ResumeInputs() {
                             id="standard-basic"
                             label="Full Name"
                             fullWidth
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={resume.name}
+                            onChange={(e) =>
+                                setResume({ ...resume, name: e.target.value })
+                            }
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="Location"
-                            value={loc}
-                            onChange={(e) => setLoc(e.target.value)}
+                            value={resume.loc}
+                            onChange={(e) =>
+                                setResume({ ...resume, loc: e.target.value })
+                            }
                             fullWidth
                             variant="standard"
                         />
@@ -144,72 +141,20 @@ function ResumeInputs() {
                             <Select
                                 labelId="demo-simple-select-standard-label"
                                 id="demo-simple-select-standard"
-                                value={job}
-                                onChange={handleJob}
+                                value={resume.job}
+                                onChange={(e) =>
+                                    setResume({
+                                        ...resume,
+                                        job: e.target.value,
+                                    })
+                                }
                             >
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                <MenuItem value="Software Developer">
-                                    Software Developer
-                                </MenuItem>
-                                <MenuItem value="Frontend Developer">
-                                    Frontend Developer
-                                </MenuItem>
-                                <MenuItem value="Backend Developer">
-                                    Backend Developer
-                                </MenuItem>
-                                <MenuItem value="Full Stack Developer">
-                                    Full Stack Developer
-                                </MenuItem>
-                                <MenuItem value="React Developer">
-                                    React Developer
-                                </MenuItem>
-                                <MenuItem value="Node.js Developer">
-                                    Node.js Developer
-                                </MenuItem>
-                                <MenuItem value="UI/UX Designer">
-                                    UI/UX Designer
-                                </MenuItem>
-                                <MenuItem value="Graphic Designer">
-                                    Graphic Designer
-                                </MenuItem>
-                                <MenuItem value="Data Analyst">
-                                    Data Analyst
-                                </MenuItem>
-                                <MenuItem value="Data Scientist">
-                                    Data Scientist
-                                </MenuItem>
-                                <MenuItem value="Machine Learning Engineer">
-                                    Machine Learning Engineer
-                                </MenuItem>
-                                <MenuItem value="DevOps Engineer">
-                                    DevOps Engineer
-                                </MenuItem>
-                                <MenuItem value="Cybersecurity Analyst">
-                                    Cybersecurity Analyst
-                                </MenuItem>
-                                <MenuItem value="Project Manager">
-                                    Project Manager
-                                </MenuItem>
-                                <MenuItem value="Product Manager">
-                                    Product Manager
-                                </MenuItem>
-                                <MenuItem value="Business Analyst">
-                                    Business Analyst
-                                </MenuItem>
-                                <MenuItem value="Digital Marketing Specialist">
-                                    Digital Marketing Specialist
-                                </MenuItem>
-                                <MenuItem value="SEO Specialist">
-                                    SEO Specialist
-                                </MenuItem>
-                                <MenuItem value="Content Writer">
-                                    Content Writer
-                                </MenuItem>
-                                <MenuItem value="HR Manager">
-                                    HR Manager
-                                </MenuItem>
+                                {jobs.jobRoles.map((job) => (
+                                    <MenuItem value={job}>{job}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>{" "}
                     </div>
@@ -222,31 +167,45 @@ function ResumeInputs() {
                         <TextField
                             id="standard-basic"
                             label="Email"
-                            value={mail}
-                            onChange={(e) => setMail(e.target.value)}
+                            value={resume.mail}
+                            onChange={(e) =>
+                                setResume({ ...resume, mail: e.target.value })
+                            }
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="Contact Number"
-                            value={contact}
-                            onChange={(e) => setContact(e.target.value)}
+                            value={resume.contact}
+                            onChange={(e) =>
+                                setResume({
+                                    ...resume,
+                                    contact: e.target.value,
+                                })
+                            }
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="Linkedin Link"
-                            value={linkedin}
-                            onChange={(e) => setLinkedin(e.target.value)}
+                            value={resume.linkedin}
+                            onChange={(e) =>
+                                setResume({
+                                    ...resume,
+                                    linkedin: e.target.value,
+                                })
+                            }
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
-                            value={git}
-                            onChange={(e) => setGit(e.target.value)}
+                            value={resume.git}
+                            onChange={(e) =>
+                                setResume({ ...resume, git: e.target.value })
+                            }
                             label="Github Link"
                             fullWidth
                             variant="standard"
@@ -261,24 +220,36 @@ function ResumeInputs() {
                         <TextField
                             id="standard-basic"
                             label="Bachelor's Degree"
-                            value={degree}
-                            onChange={(e) => setDegree(e.target.value)}
+                            value={resume.degree}
+                            onChange={(e) =>
+                                setResume({ ...resume, degree: e.target.value })
+                            }
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="College/University Name"
-                            value={college}
-                            onChange={(e) => setCollege(e.target.value)}
+                            value={resume.college}
+                            onChange={(e) =>
+                                setResume({
+                                    ...resume,
+                                    college: e.target.value,
+                                })
+                            }
                             fullWidth
                             variant="standard"
                         />
                         <TextField
                             id="standard-basic"
                             label="Year of Graduation"
-                            value={gradYear}
-                            onChange={(e) => setGradYear(e.target.value)}
+                            value={resume.gradYear}
+                            onChange={(e) =>
+                                setResume({
+                                    ...resume,
+                                    gradYear: e.target.value,
+                                })
+                            }
                             fullWidth
                             variant="standard"
                         />
@@ -315,13 +286,13 @@ function ResumeInputs() {
                     {steps.map((label, index) => {
                         const stepProps = {};
                         const labelProps = {};
-                        if (isStepOptional(index)) {
-                            labelProps.optional = (
-                                <Typography variant="caption">
-                                    Optional
-                                </Typography>
-                            );
-                        }
+                        // if (isStepOptional(index)) {
+                        //     labelProps.optional = (
+                        //         <Typography variant="caption">
+                        //             Optional
+                        //         </Typography>
+                        //     );
+                        // }
                         if (isStepSkipped(index)) {
                             stepProps.completed = false;
                         }
@@ -395,7 +366,7 @@ function ResumeInputs() {
                                         "Generate AI Skill & Summary "
                                     </Button>
                                 ) : (
-                                    <Button onClick={handleNext}>"Next"</Button>
+                                    <Button onClick={handleNext}>Next</Button>
                                 )}
                             </div>
                         </Box>

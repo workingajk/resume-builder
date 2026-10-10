@@ -18,14 +18,14 @@ function Resume() {
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: "space-between",
+                        justifyContent: "center",
                         padding:'20px 0px'
                     }}
                 >
                     <Typography variant="h4" style={{fontWeight:'bold'}}>
                         Create an ATS Friendly Resume in Minutes with AI
                     </Typography>
-                    <Button variant='contained'  style={{width:'200px', backgroundColor: "brown"}}>View Chart</Button>
+                    {/* <Button variant='contained'  style={{width:'200px', backgroundColor: "brown"}}>View Chart</Button> */}
                 </Box>
                 <Stack
                     direction={{ xs: "column", sm: "row" }}
