@@ -6,7 +6,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { TextField } from "@mui/material";
+import { alertTitleClasses, TextField } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -14,6 +14,10 @@ import Select from "@mui/material/Select";
 import jobSkills from "../assets/jobSkills.json";
 import jobs from "../assets/jobRoles.json";
 import summaries from "../assets/summaries.json";
+import { addResume } from "../services/apiService";
+import { useNavigate } from "react-router-dom";
+
+import Swal from "sweetalert2";
 
 const steps = [
     "Basic Information",
@@ -25,6 +29,7 @@ const steps = [
 function ResumeInputs({ resume, setResume }) {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
+    const nav = useNavigate();
 
     const isStepOptional = React.useCallback((step) => {
         return step === 1;
@@ -64,8 +69,31 @@ function ResumeInputs({ resume, setResume }) {
     //     });
     // };
 
-    const handleReset = () => {
-        setActiveStep(0);
+    const handleSubmit = async () => {
+        const response = await addResume(resume);
+        console.log(response);
+        const id = response.data.id;
+
+        if (response.status == 201) {
+            Swal.fire({
+                title: "Good job!",
+                text: "The resume was submitted successfuly",
+                icon: "success",
+            });
+        }
+        setTimeout(() => {
+            nav(`/resume/${id}`);
+        }, 3000);
+        //  else {
+        //     Swal.fire({
+        //         title: "Error!",
+        //         text: "Try agian",
+        //         icon: "error",
+        //         confirmButtonText: "OK",
+        //     });
+        // }
+        // alert("submitted");
+        // setActiveStep(0);
     };
 
     const previousActiveStepRef = React.useRef(activeStep);
@@ -98,9 +126,12 @@ function ResumeInputs({ resume, setResume }) {
     };
 
     const handleGenerateSummary = () => {
-        setResume({ ...resume, skills: jobSkills[resume.job], summary:summaries[resume.job] });
+        setResume({
+            ...resume,
+            skills: jobSkills[resume.job],
+            summary: summaries[resume.job],
+        });
         console.log(resume);
-
         handleNext();
     };
 
@@ -324,8 +355,8 @@ function ResumeInputs({ resume, setResume }) {
                             }}
                         >
                             <Box sx={{ flex: "1 1 auto" }} />
-                            <Button onClick={handleReset} ref={resetButtonRef}>
-                                Reset
+                            <Button onClick={handleSubmit} ref={resetButtonRef}>
+                                Submit
                             </Button>
                         </Box>
                     </React.Fragment>

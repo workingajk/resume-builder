@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Preview from "../components/Preview";
 import { Box, Button, Stack } from "@mui/material";
 import Edit from "../components/Edit";
+import { useParams } from "react-router-dom";
+import { getResume } from "../services/apiService";
 
 function View() {
+    const { id } = useParams();
+    console.log(id);
+    const [resume,setResume] = useState()
+
+    const viewResume = async () => {
+        const response = await getResume(id);
+        console.log(response.data);
+        setResume(response.data)
+        
+    };
+    useEffect(() => {
+        viewResume();
+    }, []);
+    
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    console.log(resume);
     return (
         <>
             <Stack
@@ -44,7 +61,7 @@ function View() {
                     paddingY: "30px",
                 }}
             >
-                <Preview elevation='0' />
+                <Preview elevation="0"  resume={resume}/>
             </Box>
         </>
     );

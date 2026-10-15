@@ -19,7 +19,10 @@ function Preview({
         skills: [],
         summary: "",
     },
+    id,
 }) {
+
+
     return (
         <Box
             sx={{
@@ -44,10 +47,10 @@ function Preview({
                 }}
             >
                 <Typography variant="h3" sx={{ textAlign: "center" }}>
-                    {resume.name}
+                    {resume.name ? resume.name : "Full Name"}
                 </Typography>
                 <Typography variant="h6" sx={{ textAlign: "center" }}>
-                    {resume.job}
+                    {resume.job ? resume.job : "Job Role"}
                 </Typography>
                 <Stack
                     direction={"row"}
@@ -55,34 +58,74 @@ function Preview({
                     sx={{ textAlign: "center", justifyContent: "center" }}
                     divider={<Divider />}
                 >
-                    <Typography variant="body1"> {resume.contact}</Typography>
-                    <Typography variant="body1"> {resume.mail}</Typography>
-                    <Typography variant="body1">{resume.linkedin}</Typography>
-                    <Typography variant="body1"> {resume.git}</Typography>
-                    <Typography variant="body1"> {resume.loc}</Typography>
+                    <Typography variant="body1">
+                        {" "}
+                        {resume.contact ? resume.contact : "Contact"}
+                    </Typography>
+                    <Typography variant="body1">
+                        {" "}
+                        {resume.mail ? resume.mail : "Gmail"}
+                    </Typography>
+                    <Typography variant="body1">
+                        {resume.linkedin ? resume.linkedin : "Linkedin"}
+                    </Typography>
+                    <Typography variant="body1">
+                        {" "}
+                        {resume.git ? resume.git : "Github"}
+                    </Typography>
+                    <Typography variant="body1">
+                        {" "}
+                        {resume.loc ? resume.loc : "Location"}
+                    </Typography>
                 </Stack>
                 <Divider />
                 <Typography variant="h4">Professional Summary</Typography>
-                <Typography variant="body1">{resume.summary}</Typography>
+                <Typography variant="body1">
+                    {resume.summary
+                        ? resume.summary
+                        : "Professional Summary will be shown here"}
+                </Typography>
                 <Divider />
                 <Typography variant="h4">Technical Skills</Typography>
-                <Typography variant="body1">
-                    <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                        {resume.skills.map((skill) => (
-                            <Typography>{skill}</Typography>
-                        ))}
+                <Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "5",
+                            flexDirection: "row",
+                        }}
+                    >
+                        {resume.skills ? (
+                            resume.skills.map((skill) => (
+                                <Typography
+                                    sx={{
+                                        // backgroundColor: "brown",
+                                        padding: "4px 8px",
+                                        margin: "2px 4px",
+                                    }}
+                                >
+                                    {skill}
+                                </Typography>
+                            ))
+                        ) : (
+                            <Typography>Technical skills</Typography>
+                        )}
                     </Box>
-                </Typography>
+                </Box>
                 <Divider />
                 <Typography variant="h4">Education</Typography>
                 <Typography variant="body1">
-                    Bachelor's Degree in {resume.degree}
+                    Bachelor's Degree in{" "}
+                    {resume.degree ? resume.degree : "Degree"}
                 </Typography>
                 <Typography variant="body1">
-                    University/College Name: {resume.college}
+                    University/College Name:{" "}
+                    {resume.college ? resume.college : "College"}
                 </Typography>
                 <Typography variant="body1">
-                    Year of Graduation: {resume.gradYear}
+                    Year of Graduation:{" "}
+                    {resume.gradYear ? resume.gradYear : "Graduation Year"}
                 </Typography>
             </Paper>
         </Box>

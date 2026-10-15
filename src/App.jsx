@@ -11,6 +11,7 @@ import View from "./pages/View";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Test from './pages/Test'
+import { useParams } from "react-router";
 
 function App() {
     return (
