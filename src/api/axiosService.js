@@ -1,9 +1,9 @@
 import instance from "./axiosInstance";
 
-const axiosService = async (httpMethor, url, reqBody) => {
+const axiosService = async (httpMethod, url, reqBody) => {
     try {
         const response = await instance({
-            method: httpMethor,
+            method: httpMethod,
             url: url,
             data: reqBody,
         });

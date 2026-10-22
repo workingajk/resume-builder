@@ -17,7 +17,7 @@ import jobSkills from "../assets/jobSkills.json";
 import jobs from "../assets/jobRoles.json";
 import summaries from "../assets/summaries.json";
 import { Cancel } from "@mui/icons-material";
-import { editResume } from "../services/apiService";
+import { editResumeAPI } from "../services/apiService";
 
 function Edit({
     handleClose,
@@ -37,11 +37,11 @@ function Edit({
         skills: "",
     },
     setResume,
-    id
+    id,
 }) {
-    let editInfo = resume
+    let editInfo = resume;
     console.log(editInfo);
-    
+
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: "#fff",
         ...theme.typography.body2,
@@ -53,12 +53,16 @@ function Edit({
         }),
     }));
 
-    const handleSubmit=async()=>{
-        const response = await editResume(id, resume)
+    const handleUpdate = async () => {
+        const response = await editResume(id, resume);
         console.log(response);
+    };
+ 
+    const addSkill = (val)=>{
+        console.log(val);
         
-    }
 
+    }
     return (
         <Modal
             open={open}
@@ -221,16 +225,22 @@ function Edit({
                 </div>
                 <div>
                     <Typography variant="h5">Skills</Typography>
-                    <TextField
-                        id="standard-basic"
-                        label="Add Skills"
-                        value={resume.gradYear}
-                        onChange={(e) =>
-                            setResume({ ...resume, contact: e.target.value })
-                        }
-                        fullWidth
-                        variant="standard"
-                    />
+                    <Stack direction={"row"} >
+                        <TextField
+                            id="standard-basic"
+                            label="Add Skills"
+                            value={resume.gradYear}
+                            onChange={(e) =>
+                                setResume({
+                                    ...resume,
+                                    contact: e.target.value,
+                                })
+                            }
+                            fullWidth
+                            variant="standard"
+                        />
+                        <Button onClick={(e)=>addSkill(e.target.value)}>Add</Button>
+                    </Stack>
                     <Typography variant="h5">Added Skills</Typography>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
@@ -257,13 +267,12 @@ function Edit({
                                     <Item>Technical skills</Item>
                                 </Grid>
                             )}
-                            
                         </Grid>
                     </Box>
                 </div>
                 <Stack direction={"row"} sx={{ justifyContent: "center" }}>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Save</Button>
+                    <Button onClick={handleUpdate}>Save</Button>
                 </Stack>
             </Box>
         </Modal>

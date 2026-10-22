@@ -14,7 +14,7 @@ import Select from "@mui/material/Select";
 import jobSkills from "../assets/jobSkills.json";
 import jobs from "../assets/jobRoles.json";
 import summaries from "../assets/summaries.json";
-import { addResume } from "../services/apiService";
+import { addResumeAPI } from "../services/apiService";
 import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";

@@ -3,7 +3,7 @@ import Preview from "../components/Preview";
 import { Box, Button, Stack } from "@mui/material";
 import Edit from "../components/Edit";
 import { useParams } from "react-router-dom";
-import { getResume } from "../services/apiService";
+import { getResumeAPI } from "../services/apiService";
 
 function View() {
     const { id } = useParams();
@@ -11,7 +11,7 @@ function View() {
     const [resume,setResume] = useState()
 
     const viewResume = async () => {
-        const response = await getResume(id);
+        const response = await getResumeAPI(id);
         console.log(response.data);
         setResume(response.data)
         
