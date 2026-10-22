@@ -8,17 +8,19 @@ import { getResumeAPI } from "../services/apiService";
 function View() {
     const { id } = useParams();
     console.log(id);
-    const [resume,setResume] = useState()
+    const [resume, setResume] = useState();
 
     const viewResume = async () => {
         const response = await getResumeAPI(id);
         console.log(response.data);
-        setResume(response.data)
-        
+        setResume(response.data);
     };
     useEffect(() => {
         viewResume();
     }, []);
+
+    const downloadPdf=()=>{}
+
     
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -35,7 +37,11 @@ function View() {
                     justifyContent: "center",
                 }}
             >
-                <Button variant="primary" sx={{ color: "brown" }}>
+                <Button
+                    variant="primary"
+                    sx={{ color: "brown" }}
+                    onClick={downloadPdf}
+                >
                     Download CV
                 </Button>
                 <Button
@@ -64,7 +70,7 @@ function View() {
                     paddingY: "30px",
                 }}
             >
-                <Preview elevation="0"  resume={resume}/>
+                <Preview elevation="0" resume={resume} />
             </Box>
         </>
     );

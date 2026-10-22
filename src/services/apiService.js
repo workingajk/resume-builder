@@ -16,3 +16,7 @@ export const deleteResumeAPI = async (resume) => {
     return await axiosService("DELETE", "/resumes", resume);
 };
 
+export const downloadResumeAPI = async (reqBody) => {
+    return await axiosService("POST", "/downloads", reqBody);
+};
+

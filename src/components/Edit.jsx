@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import { Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -54,15 +54,35 @@ function Edit({
     }));
 
     const handleUpdate = async () => {
-        const response = await editResume(id, resume);
+        const response = await editResumeAPI(id, resume);
         console.log(response);
     };
- 
-    const addSkill = (val)=>{
-        console.log(val);
-        
 
-    }
+    const inputRef = useRef(null);
+
+    const addSkill = (skill) => {
+        skill = skill.toUpperCase()
+        if (skill) {
+            if (resume?.skills?.includes(skill)) {
+                alert("already exists ");
+            } else {
+                setResume({ ...resume, skills: [...resume.skills, skill.toUpperCase()] });
+            }
+            inputRef.current.value = "";
+        } else {
+            alert("please fill it ");
+        }
+
+        console.log(resume);
+    };
+
+    const handleDeleteSkill = (skill) => {
+        console.log(skill);
+        setResume({
+            ...resume,
+            skills: resume.skills.filter((item) => item !== skill),
+        });
+    };
     return (
         <Modal
             open={open}
@@ -225,21 +245,19 @@ function Edit({
                 </div>
                 <div>
                     <Typography variant="h5">Skills</Typography>
-                    <Stack direction={"row"} >
+                    <Stack direction={"row"}>
                         <TextField
-                            id="standard-basic"
+                            // id="standard-basic"
                             label="Add Skills"
-                            value={resume.gradYear}
-                            onChange={(e) =>
-                                setResume({
-                                    ...resume,
-                                    contact: e.target.value,
-                                })
-                            }
+                            inputRef={inputRef}
                             fullWidth
                             variant="standard"
                         />
-                        <Button onClick={(e)=>addSkill(e.target.value)}>Add</Button>
+                        <Button
+                            onClick={() => addSkill(inputRef.current.value)}
+                        >
+                            Add
+                        </Button>
                     </Stack>
                     <Typography variant="h5">Added Skills</Typography>
                     <Box sx={{ flexGrow: 1 }}>
@@ -258,7 +276,14 @@ function Edit({
                                             }}
                                         >
                                             {" "}
-                                            {skill} <Cancel />{" "}
+                                            {skill}
+                                            <span
+                                                onClick={() =>
+                                                    handleDeleteSkill(skill)
+                                                }
+                                            >
+                                                <Cancel />
+                                            </span>
                                         </Item>
                                     </Grid>
                                 ))
