@@ -53,6 +53,9 @@ function View() {
                     handleClose={handleClose}
                     handleOpen={handleOpen}
                     open={open}
+                    resume={resume}
+                    setResume={setResume}
+                    id={id}
                 />
             </Stack>
             <Box

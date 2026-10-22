@@ -13,6 +13,11 @@ import { styled } from "@mui/material/styles";
 // import Box from '@mui/material/Box';
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import jobSkills from "../assets/jobSkills.json";
+import jobs from "../assets/jobRoles.json";
+import summaries from "../assets/summaries.json";
+import { Cancel } from "@mui/icons-material";
+import { editResume } from "../services/apiService";
 
 function Edit({
     handleClose,
@@ -32,7 +37,11 @@ function Edit({
         skills: "",
     },
     setResume,
+    id
 }) {
+    let editInfo = resume
+    console.log(editInfo);
+    
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: "#fff",
         ...theme.typography.body2,
@@ -43,6 +52,13 @@ function Edit({
             backgroundColor: "#1A2027",
         }),
     }));
+
+    const handleSubmit=async()=>{
+        const response = await editResume(id, resume)
+        console.log(response);
+        
+    }
+
     return (
         <Modal
             open={open}
@@ -86,14 +102,18 @@ function Edit({
                         label="Full Name"
                         fullWidth
                         value={resume.name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, name: e.target.value })
+                        }
                         variant="standard"
                     />
                     <TextField
                         id="standard-basic"
                         label="Location"
                         value={resume.loc}
-                        onChange={(e) => setLoc(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, loc: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
@@ -109,69 +129,16 @@ function Edit({
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
                             value={resume.job}
-                            onChange={(e) => setJob(e.target.value)}
+                            onChange={(e) =>
+                                setResume({ ...resume, job: e.target.value })
+                            }
                         >
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value="Software Developer">
-                                Software Developer
-                            </MenuItem>
-                            <MenuItem value="Frontend Developer">
-                                Frontend Developer
-                            </MenuItem>
-                            <MenuItem value="Backend Developer">
-                                Backend Developer
-                            </MenuItem>
-                            <MenuItem value="Full Stack Developer">
-                                Full Stack Developer
-                            </MenuItem>
-                            <MenuItem value="React Developer">
-                                React Developer
-                            </MenuItem>
-                            <MenuItem value="Node.js Developer">
-                                Node.js Developer
-                            </MenuItem>
-                            <MenuItem value="UI/UX Designer">
-                                UI/UX Designer
-                            </MenuItem>
-                            <MenuItem value="Graphic Designer">
-                                Graphic Designer
-                            </MenuItem>
-                            <MenuItem value="Data Analyst">
-                                Data Analyst
-                            </MenuItem>
-                            <MenuItem value="Data Scientist">
-                                Data Scientist
-                            </MenuItem>
-                            <MenuItem value="Machine Learning Engineer">
-                                Machine Learning Engineer
-                            </MenuItem>
-                            <MenuItem value="DevOps Engineer">
-                                DevOps Engineer
-                            </MenuItem>
-                            <MenuItem value="Cybersecurity Analyst">
-                                Cybersecurity Analyst
-                            </MenuItem>
-                            <MenuItem value="Project Manager">
-                                Project Manager
-                            </MenuItem>
-                            <MenuItem value="Product Manager">
-                                Product Manager
-                            </MenuItem>
-                            <MenuItem value="Business Analyst">
-                                Business Analyst
-                            </MenuItem>
-                            <MenuItem value="Digital Marketing Specialist">
-                                Digital Marketing Specialist
-                            </MenuItem>
-                            <MenuItem value="SEO Specialist">
-                                SEO Specialist
-                            </MenuItem>
-                            <MenuItem value="Content Writer">
-                                Content Writer
-                            </MenuItem>
-                            <MenuItem value="HR Manager">HR Manager</MenuItem>
+                            {jobs.jobRoles.map((job) => (
+                                <MenuItem value={job}>{job}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>{" "}
                 </div>
@@ -181,7 +148,9 @@ function Edit({
                         id="standard-basic"
                         label="Email"
                         value={resume.mail}
-                        onChange={(e) => setMail(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, mail: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
@@ -189,7 +158,9 @@ function Edit({
                         id="standard-basic"
                         label="Contact Number"
                         value={resume.contact}
-                        onChange={(e) => setContact(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, contact: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
@@ -197,14 +168,18 @@ function Edit({
                         id="standard-basic"
                         label="Linkedin Link"
                         value={resume.linkedin}
-                        onChange={(e) => setLinkedin(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, linkedin: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
                     <TextField
                         id="standard-basic"
                         value={resume.git}
-                        onChange={(e) => setGit(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, git: e.target.value })
+                        }
                         label="Github Link"
                         fullWidth
                         variant="standard"
@@ -217,7 +192,9 @@ function Edit({
                         id="standard-basic"
                         label="Bachelor's Degree"
                         value={resume.degree}
-                        onChange={(e) => setDegree(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, degree: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
@@ -225,7 +202,9 @@ function Edit({
                         id="standard-basic"
                         label="College/University Name"
                         value={resume.college}
-                        onChange={(e) => setCollege(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, college: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
@@ -233,7 +212,9 @@ function Edit({
                         id="standard-basic"
                         label="Year of Graduation"
                         value={resume.gradYear}
-                        onChange={(e) => setGradYear(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, gradYear: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
@@ -244,31 +225,45 @@ function Edit({
                         id="standard-basic"
                         label="Add Skills"
                         value={resume.gradYear}
-                        onChange={(e) => setGradYear(e.target.value)}
+                        onChange={(e) =>
+                            setResume({ ...resume, contact: e.target.value })
+                        }
                         fullWidth
                         variant="standard"
                     />
                     <Typography variant="h5">Added Skills</Typography>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
-                            <Grid size={4}>
-                                <Item>size=8</Item>
-                            </Grid>
-                            <Grid size={4}>
-                                <Item>size=4</Item>
-                            </Grid>
-                            <Grid size={4}>
-                                <Item>size=4</Item>
-                            </Grid>
-                            <Grid size={4}>
-                                <Item>size=8</Item>
-                            </Grid>
+                            {resume.skills ? (
+                                resume.skills.map((skill) => (
+                                    <Grid size={4}>
+                                        <Item
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                gap: 4,
+                                                backgroundColor: "brown",
+                                                color: "white",
+                                            }}
+                                        >
+                                            {" "}
+                                            {skill} <Cancel />{" "}
+                                        </Item>
+                                    </Grid>
+                                ))
+                            ) : (
+                                <Grid size={4}>
+                                    <Item>Technical skills</Item>
+                                </Grid>
+                            )}
+                            
                         </Grid>
                     </Box>
                 </div>
                 <Stack direction={"row"} sx={{ justifyContent: "center" }}>
-                    <Button>Cancel</Button>
-                    <Button>Save</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleSubmit}>Save</Button>
                 </Stack>
             </Box>
         </Modal>
