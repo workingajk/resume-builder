@@ -8,7 +8,11 @@ export const getResumeAPI = async (id) => {
     return await axiosService("GET", `/resumes/${id}`, {});
 };
 
-export const editResumeAPI = async (id,resume) => {
+export const getResumesAPI = async () => {
+    return await axiosService("GET", `/resumes`, {});
+};
+
+export const editResumeAPI = async (id, resume) => {
     return await axiosService("PUT", `/resumes/${id}`, resume);
 };
 
@@ -19,4 +23,3 @@ export const deleteResumeAPI = async (resume) => {
 export const downloadResumeAPI = async (reqBody) => {
     return await axiosService("POST", "/downloads", reqBody);
 };
-

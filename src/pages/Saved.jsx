@@ -1,5 +1,5 @@
 import { Box, Input, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,6 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { CiSearch } from "react-icons/ci";
+import { getResumesAPI } from "../services/apiService";
 
 function Saved() {
     function createData(name, calories, fat, carbs) {
@@ -22,6 +23,16 @@ function Saved() {
         createData("Cupcake", 305, 3.7, 67, 4.3),
         createData("Gingerbread", 356, 16.0, 49, 3.9),
     ];
+
+    const handleGetResumes = async () => {
+        const response = await getResumesAPI();
+        console.log(response.data);
+    };
+
+    useEffect(() => {
+        handleGetResumes();
+    });
+
     return (
         <div style={{ textAlign: "center" }}>
             <Typography variant="h3">All Saved Resumes</Typography>
@@ -42,7 +53,7 @@ function Saved() {
                     placeholder="Search Job Title "
                     slotProps={{
                         input: {
-                            endAdornment: <CiSearch size={'20px'}  />,
+                            endAdornment: <CiSearch size={"20px"} />,
                         },
                     }}
                 />

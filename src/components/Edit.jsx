@@ -56,6 +56,7 @@ function Edit({
     const handleUpdate = async () => {
         const response = await editResumeAPI(id, resume);
         console.log(response);
+        handleClose()
     };
 
     const inputRef = useRef(null);
@@ -295,7 +296,7 @@ function Edit({
                         </Grid>
                     </Box>
                 </div>
-                <Stack direction={"row"} sx={{ justifyContent: "center" }}>
+                <Stack direction={"row"} sx={{ justifyContent: "center", p:2 }}>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleUpdate}>Save</Button>
                 </Stack>

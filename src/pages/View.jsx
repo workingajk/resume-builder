@@ -11,7 +11,7 @@ function View() {
     const [resume, setResume] = useState();
 
     const viewResume = async () => {
-        const response = await getResumeAPI(id);
+    const response = await getResumeAPI(id);
         console.log(response.data);
         setResume(response.data);
     };
