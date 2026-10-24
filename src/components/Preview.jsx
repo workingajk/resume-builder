@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { Divider, Stack, Typography } from "@mui/material";
 
+
 function Preview({
     elevation = 24,
     resume = {
@@ -31,11 +32,12 @@ function Preview({
                 "& > :not(style)": {
                     m: 1,
                     width: "100%",
-                    minHeight: 800,
+                    minHeight: 600,
                 },
             }}
         >
             <Paper
+            id="result"
                 elevation={elevation}
                 sx={{
                     boxSizing: "border-box",
@@ -55,7 +57,7 @@ function Preview({
                 <Stack
                     direction={"row"}
                     spacing={1}
-                    sx={{ textAlign: "center", justifyContent: "center" }}
+                    sx={{ textAlign: "center", justifyContent: "center", flexWrap:'wrap' }}
                     divider={<Divider />}
                 >
                     <Typography variant="body1">

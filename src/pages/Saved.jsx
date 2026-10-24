@@ -1,5 +1,5 @@
 import { Box, Input, TextField, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,14 +24,17 @@ function Saved() {
         createData("Gingerbread", 356, 16.0, 49, 3.9),
     ];
 
+    const [resumes,setResumes] = useState([])
+
     const handleGetResumes = async () => {
         const response = await getResumesAPI();
         console.log(response.data);
+        setResumes(response.data)
     };
 
     useEffect(() => {
         handleGetResumes();
-    });
+    },[]);
 
     return (
         <div style={{ textAlign: "center" }}>
@@ -71,9 +74,9 @@ function Saved() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
+                        {resumes.map((resume, index) => (
                             <TableRow
-                                key={row.name}
+                                key={resume.id}
                                 sx={{
                                     "&:last-child td, &:last-child th": {
                                         border: 0,
@@ -84,13 +87,13 @@ function Saved() {
                                     {index}
                                 </TableCell>
                                 <TableCell align="right">
-                                    {row.calories}
+                                    {resume.name}
                                 </TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
-                                <TableCell align="right">
-                                    {row.protein}
-                                </TableCell>
+                                <TableCell align="right">{resume.job}</TableCell>
+                                <TableCell align="right">{resume.job}</TableCell>
+                                {/* <TableCell align="right">
+                                    {resume.job}
+                                </TableCell> */}
                             </TableRow>
                         ))}
                     </TableBody>

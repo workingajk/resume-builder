@@ -70,7 +70,7 @@ function ResumeInputs({ resume, setResume }) {
     // };
 
     const handleSubmit = async () => {
-        const response = await addResume(resume);
+        const response = await addResumeAPI(resume);
         console.log(response);
         const id = response.data.id;
 

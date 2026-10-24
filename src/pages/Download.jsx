@@ -1,9 +1,10 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Modal from "@mui/material/Modal";
+import { getDownloadsAPI, deleteDownloadAPI } from "../services/apiService";
 
 const style = {
     position: "absolute",
@@ -21,6 +22,31 @@ function Download() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [downloads, setDownloads] = useState([]);
+    const getDownloads = async () => {
+        try {
+            const response = await getDownloadsAPI();
+            console.log(response.data);
+            setDownloads(response.data);
+            console.log();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const deleteDownload = async (id) => {
+        console.log(id);
+
+        const response = await deleteDownloadAPI(id);
+        console.log(response);
+        await getDownloads();
+    };
+
+    useEffect(() => {
+        getDownloads();
+    }, []);
+
     return (
         <>
             <Stack
@@ -76,19 +102,43 @@ function Download() {
                     justifyContent: "space-around",
                     "& > :not(style)": {
                         m: 1,
-                        width: "25%",
-                        height: 400,
+                        width: 350,
+                        height: 700,
                         mx: "60px",
                         my: "30px",
                     },
                 }}
             >
-                <Paper elevation={24}>Resume</Paper>
-                <Paper elevation={24}>Resume</Paper>
-                <Paper elevation={24}>Resume</Paper>
-                <Paper elevation={24}>Resume</Paper>
-                <Paper elevation={24}>Resume</Paper>
-                <Paper elevation={24}>Resume</Paper>
+                {downloads.length > 0
+                    ? downloads.map((item) => (
+                          <div key={item.id}>
+                              <Stack
+                                  direction={"row"}
+                                  sx={{
+                                      justifyContent: "space-between",
+                                      alignItems: "center",
+                                      p: 1,
+                                  }}
+                              >
+                                  <Typography variant="h6">
+                                      {item.formattedDate}
+                                  </Typography>
+                                  <Button
+                                      sx={{
+                                          backgroundColor: "red",
+                                          color: "white",
+                                      }}
+                                      onClick={() => deleteDownload(item.id)}
+                                  >
+                                      Delete
+                                  </Button>
+                              </Stack>
+                              <Paper elevation={24}>
+                                  <img src={item.imgUrl} alt="" width="100%" />
+                              </Paper>
+                          </div>
+                      ))
+                    : "No Downloads Yet"}
             </Box>
         </>
     );
