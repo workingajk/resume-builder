@@ -36,11 +36,17 @@ function Download() {
     };
 
     const deleteDownload = async (id) => {
-        console.log(id);
+        try{
 
-        const response = await deleteDownloadAPI(id);
-        console.log(response);
-        await getDownloads();
+            console.log(id);
+            
+            const response = await deleteDownloadAPI(id);
+            console.log(response);
+            await getDownloads(); 
+        } catch(err){
+            console.error(err);
+            
+        }
     };
 
     useEffect(() => {

@@ -3,7 +3,7 @@ import Preview from "../components/Preview";
 import { Box, Button, Stack } from "@mui/material";
 import Edit from "../components/Edit";
 import { useParams } from "react-router-dom";
-import { downloadResumeAPI, getResumeAPI } from "../services/apiService";
+import { downloadResumeAPI, getResumeAPI, uploadCloudinary } from "../services/apiService";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 
@@ -47,10 +47,16 @@ function View() {
 
         console.log();
 
+        const cloudinaryResponse = await uploadCloudinary(imgUrl)
+        console.log(cloudinaryResponse);
+        
+
         const response = await downloadResumeAPI({
             ...resume,
-            imgUrl,
-            formattedDate,
+            imgUrl:cloudinaryResponse,
+            formattedDate:formattedDate,
+            id:formattedDate,
+            resumeId:resume.id
         });
         console.log(response);
     };
