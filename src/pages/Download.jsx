@@ -27,11 +27,19 @@ function Download() {
     const handleClose = () => setOpen(false);
 
     const [downloads, setDownloads] = useState([]);
+    const [chartData, setChartData] = useState([]);
     const getDownloads = async () => {
         try {
             const response = await getDownloadsAPI();
             console.log(response.data);
             setDownloads(response.data);
+            setChartData(
+                jobs.jobRoles.map((job) => ({
+                    name: job,
+                    uv: response.data.filter((item) => item.job.includes(job))
+                        .length,
+                })),
+            );
             console.log();
         } catch (error) {
             console.log(error);
@@ -50,16 +58,17 @@ function Download() {
         }
     };
 
-
-    // const [chartData,setChartData] = useState(jobs.jobsRoles.map((job) => {
-    //     downloads.filter((item) => item.job == job).length;
-    //     return {
-    //         name: job,
-    //         uv: downloads.filter((item) => item.job.includes(job)).length,
-    //     };
-    // }));
+    // console.log(
+    //     jobs.jobRoles.map((job) => {
+    //         return {
+    //             name: job,
+    //             uv: downloads.filter((item) => item.job.includes(job)).length
+    //         };
+    //     }),
+    // );
 
     useEffect(() => {
+        // console.log(chartData)
         getDownloads();
     }, []);
 
@@ -105,11 +114,7 @@ function Download() {
                                 activeShape={{
                                     fill: "green",
                                 }}
-                                data={[
-                                    { name: "Page A", uv: 50 },
-                                    { name: "Page B", uv: 590 },
-                                    { name: "Page C", uv: 868 },
-                                ]}
+                                data={chartData}
                                 dataKey="uv"
                                 isAnimationActive={true}
                             />
