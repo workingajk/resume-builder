@@ -5,6 +5,9 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Modal from "@mui/material/Modal";
 import { getDownloadsAPI, deleteDownloadAPI } from "../services/apiService";
+import { Pie, PieChart, Tooltip } from "recharts";
+// import { RechartsDevtools } from "@recharts/devtools";
+import jobs from "../assets/jobRoles.json";
 
 const style = {
     position: "absolute",
@@ -36,18 +39,25 @@ function Download() {
     };
 
     const deleteDownload = async (id) => {
-        try{
-
+        try {
             console.log(id);
-            
+
             const response = await deleteDownloadAPI(id);
             console.log(response);
-            await getDownloads(); 
-        } catch(err){
+            await getDownloads();
+        } catch (err) {
             console.error(err);
-            
         }
     };
+
+
+    // const [chartData,setChartData] = useState(jobs.jobsRoles.map((job) => {
+    //     downloads.filter((item) => item.job == job).length;
+    //     return {
+    //         name: job,
+    //         uv: downloads.filter((item) => item.job.includes(job)).length,
+    //     };
+    // }));
 
     useEffect(() => {
         getDownloads();
@@ -90,6 +100,22 @@ function Download() {
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                             Graph
                         </Typography>
+                        <PieChart width={400} height={400}>
+                            <Pie
+                                activeShape={{
+                                    fill: "green",
+                                }}
+                                data={[
+                                    { name: "Page A", uv: 50 },
+                                    { name: "Page B", uv: 590 },
+                                    { name: "Page C", uv: 868 },
+                                ]}
+                                dataKey="uv"
+                                isAnimationActive={true}
+                            />
+                            <Tooltip defaultIndex={2} />
+                            {/* <RechartsDevtools /> */}
+                        </PieChart>
                     </Box>
                 </Modal>
             </Stack>

@@ -6,7 +6,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -22,13 +22,12 @@ import { Link } from "react-router-dom";
 function Saved() {
     const [resumes, setResumes] = useState([]);
 
-    const [search, setSearch] = useState("");
-    const [filter, setFilter] = useState([]);
     const getAllResumes = async () => {
         try {
             const response = await getAllResumesAPI();
             console.log(response.data);
             setResumes(response.data);
+            setDummyResume(response.data)
         } catch (err) {
             console.error(err);
         }
@@ -47,15 +46,26 @@ function Saved() {
             console.error(err);
         }
     };
+    
+    const [searchKey, setSearchKey] = useState("");
+    const [filter, setFilter] = useState([]);
+    const [dummyResume,setDummyResume]=useState([])
 
-    useEffect(() => {
-        setFilter(
-            resumes.filter((resume) =>
-                resume.job.toLowerCase().includes(search.toLowerCase()),
-            ),
-        );
-        console.log(filter);
-    }, [search]);
+    const searchOutput = useMemo(()=>{
+        setResumes(
+            dummyResume.filter(item=> item.job.toLowerCase().includes(searchKey.toLowerCase()))
+        )
+
+    },[searchKey]) 
+
+    // useEffect(() => {
+    //     setFilter(
+    //         resumes.filter((resume) =>
+    //             resume.job.toLowerCase().includes(searchKey.toLowerCase()),
+    //         ),
+    //     );
+    //     console.log(filter);
+    // }, [searchKey]);
 
     return (
         <div style={{ textAlign: "center" }}>
@@ -75,8 +85,8 @@ function Saved() {
             <Box>
                 <TextField
                     placeholder="Search Job Title "
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    value={searchKey}
+                    onChange={(e) => setSearchKey(e.target.value)}
                     slotProps={{
                         input: {
                             endAdornment: <CiSearch size={"20px"} />,
